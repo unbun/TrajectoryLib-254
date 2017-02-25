@@ -61,7 +61,10 @@ public class Spline {
     return reticulateSplines(start.x, start.y, start.theta, goal.x, goal.y,
             goal.theta, result, type);
   }
-
+  /*
+   * creates the Splines
+   * @return if the spline requires a turn that is too extreme the method will return false and throw a NullPointerException
+   */
   public static boolean reticulateSplines(double x0, double y0, double theta0,
           double x1, double y1, double theta1, Spline result, Type type) {
     System.out.println("Reticulating splines...");

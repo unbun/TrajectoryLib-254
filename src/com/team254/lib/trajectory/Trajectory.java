@@ -156,7 +156,7 @@ public class Trajectory {
   public String toString() {
     String str = "Segment\tPos\tVel\tAcc\tJerk\tHeading\n";
     for (int i = 0; i < getNumSegments(); ++i) {
-      Trajectory.Segment segment = getSegment(i);
+      Segment segment = getSegment(i);
       str += i + "\t";
       str += segment.pos + "\t";
       str += segment.vel + "\t";
@@ -176,7 +176,7 @@ public class Trajectory {
   public String toStringEuclidean() {
     String str = "Segment\tx\ty\tHeading\n";
     for (int i = 0; i < getNumSegments(); ++i) {
-      Trajectory.Segment segment = getSegment(i);
+      Segment segment = getSegment(i);
       str += i + "\t";
       str += segment.x + "\t";
       str += segment.y + "\t";

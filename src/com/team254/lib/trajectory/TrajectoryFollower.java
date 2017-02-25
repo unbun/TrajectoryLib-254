@@ -1,7 +1,6 @@
 package com.team254.lib.trajectory;
 
-//import org.usfirst.frc.team254.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.team254.lib.trajectory.Trajectory;
 
 /*
  * PID + Feedforward controller for following a Trajectory.
@@ -44,6 +43,7 @@ public class TrajectoryFollower {
 
   public double calculate(double distance_so_far) {
    
+	//error is position error
     if (current_segment < profile_.getNumSegments()) {
       Trajectory.Segment segment = profile_.getSegment(current_segment);
       double error = segment.pos - distance_so_far;
@@ -54,9 +54,6 @@ public class TrajectoryFollower {
       last_error_ = error;
       current_heading = segment.heading;
       current_segment++;
-      SmartDashboard.putNumber(name + "FollowerSensor", distance_so_far);
-      SmartDashboard.putNumber(name + "FollowerGoal", segment.pos);
-      SmartDashboard.putNumber(name + "FollowerError", error);
       return output;
     } else {
       return 0;
