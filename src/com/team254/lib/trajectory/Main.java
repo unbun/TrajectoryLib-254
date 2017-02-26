@@ -60,13 +60,14 @@ public class Main {
 			directory = args[0];
 		}
 
+
 		TrajectoryGenerator.Config config = new TrajectoryGenerator.Config();
-		config.dt = .01;
+		config.dt = .02;
 		config.max_acc = 10; //10.0;
 		config.max_jerk = 60.0; //60.0;
 		config.max_vel = 13; //15.0;
 
-		final double kWheelbaseWidth = 25.5/12;
+		final double kWheelbaseWidth = 28.0/12;
 
 		/*
 		 * scopes for each Path
@@ -166,10 +167,10 @@ public class Main {
 		}
 
 		{
-			config.dt = .01;
-			config.max_acc = 9;//9
+			//config.dt = .02;
+			config.max_acc = 20;//9
 			config.max_jerk = 50;//50.0
-			config.max_vel = 13;//11.75
+			config.max_vel = 14;//11.75
 			// Path name must be a valid Java class name.
 			final String path_name = "StraightAheadPath";
 
@@ -225,9 +226,78 @@ public class Main {
 				System.exit(1);
 			} else {
 				System.out.println("Wrote " + fullpath);
-				System.out.println("Last Path Reticulated");
 
 			}
+		}
+		{
+			// Path name must be a valid Java class name.
+			config.dt = .02;
+			config.max_acc = 7.0;
+			config.max_jerk = 50.0;
+			config.max_vel = 10.0;
+			final String path_name = "TenFootSCurve";
+
+			// Description of this auto mode path.
+			// Remember that this is for the GO LEFT CASE!
+			WaypointSequence p = new WaypointSequence(10);
+			p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
+			p.addWaypoint(new WaypointSequence.Waypoint(2.0, 0, 0));
+			p.addWaypoint(new WaypointSequence.Waypoint(5.0, -2.0, Math.PI/4.0));
+			p.addWaypoint(new WaypointSequence.Waypoint(8.0, -4.0, 0.0));
+			p.addWaypoint(new WaypointSequence.Waypoint(10.0, -4.0, 0.0));
+
+
+			Path path = PathGenerator.makePath(p, config,
+					kWheelbaseWidth, path_name);
+
+			// Outputs to the directory supplied as the first argument.
+			TextFileSerializer js = new TextFileSerializer();
+			String serialized = js.serialize(path);
+			//System.out.print(serialized);
+			String fullpath = joinPath(directory, path_name + ".txt");
+			if (!writeFile(fullpath, serialized)) {
+				System.err.println(fullpath + " could not be written!!!!222");
+				System.exit(1);
+			} else {
+				System.out.println("Wrote " + fullpath);
+
+			}
+
+		}
+		
+		{
+			// Path name must be a valid Java class name.
+			config.dt = .02;
+			config.max_acc = 7.0;
+			config.max_jerk = 50.0;
+			config.max_vel = 10.0;
+			final String path_name = "Test180";
+
+			// Description of this auto mode path.
+			// Remember that this is for the GO LEFT CASE!
+			WaypointSequence p = new WaypointSequence(10);
+			p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
+			p.addWaypoint(new WaypointSequence.Waypoint(6, -6, -Math.PI / 4));
+
+
+			Path path = PathGenerator.makePath(p, config,
+					kWheelbaseWidth, path_name);
+
+			// Outputs to the directory supplied as the first argument.
+			TextFileSerializer js = new TextFileSerializer();
+			String serialized = js.serialize(path);
+			//System.out.print(serialized);
+			String fullpath = joinPath(directory, path_name + ".txt");
+			if (!writeFile(fullpath, serialized)) {
+				System.err.println(fullpath + " could not be written!!!!222");
+				System.exit(1);
+			} else {
+				System.out.println("Wrote " + fullpath);
+
+			}
+
+
+
 		}
 	}
 }
